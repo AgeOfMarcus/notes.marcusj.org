@@ -1,4 +1,4 @@
-Flask
+Flask[async]
 Flask-Mobility
 Flask-CORS
 markdown2
