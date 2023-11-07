@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+
+<ul class='navbar'>
+    <li class='nav'><a href='/'>Home</a></li>
+    <li class='nav'><a href='/signup'>Sign Up</a></li>
+    <li class='nav'><a href='/login'>Log In</a></li>
+    <li class='nav active'><a href='/links/public'>Public Links</a></li>
+    <li class='nav'><a href='/demo'>Demo Editor</a></li>
+</ul>
+
+<div class='container'>
+    <h1>Public Links</h1>
+    <h3><a href='/links'>Publish your own!</a></h3>
+
+    <p>
+        This are links published by users of this site. View at your own risk.
+    </p>
+
+    <ul>
+        {% for uid,link in links.items() %}
+        <li>
+            <a href='/link/{{ uid }}'>{{ link['title']|safe }} - By {{ link['user']|safe }}</a>
+        </li>
+        {% endfor %}
+</div>
+
+{% endblock %}

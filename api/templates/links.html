@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% block content %}
+
+<ul class='navbar'>
+    <li class='nav'><a href='/'>Home</a></li>
+    <li class='nav'><a href='/notes'>Notes</a></li>
+    <li class='nav'><a href='/demo'>Demo Editor</a></li>
+</ul>
+
+
+<div class='container'>
+    <h1>Your Links</h1>
+
+    <ul>
+        {% for uid,title in links.items() %}
+        <li>
+            <a href='/link/{{ uid }}'>{{ title }}</a>
+            <a style='color: red' onclick='deleteLink("{{ uid }}")'>Delete Link</a>
+            <a style='color: green' onclick='publishLink("{{ uid }}")'>Publish Link</a>
+        </li>
+        {% endfor %}
+</div>
+
+<script>
+
+function doPOST(url, data, outfunc) {
+    var xmlhttp = new XMLHttpRequest();
+
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            try {
+                var res = this.responseURL
+                if (outfunc === "return") {
+                    return res;
+                }
+                else {
+                    outfunc(res);
+                }
+            }
+            catch(err) {
+                if (outfunc === "return") {
+                    return this.responseText;
+                }
+                else {
+                    outfunc(this.responseText);
+                }
+            }
+        }
+    }
+    xmlhttp.open("POST", url, false);
+    xmlhttp.setRequestHeader("Content-Type", "application/json");
+    xmlhttp.send(JSON.stringify(data));
+}
+
+function deleteLink(uid) {
+    if (confirm('Are you sure you want to proceed? This will delete the link, but not your original note.')) {
+        doPOST('/delete/link', {'link':uid}, function(res) {
+            location.reload();
+        })
+        location.reload();
+    }
+}
+
+function publishLink(uid) {
+    if (confirm('Are you sure you want to make this link publicly indexed? Anyone with the links address can still view the link without doing this. This will add your link to a list of links.')) {
+        doPOST('/links/public', {'link':uid, 'public':true}, function(res) {
+            window.location.href = '/links/public';
+        })
+    }
+}
+
+</script>
+
+{% endblock %}

@@ -1,1 +1,7 @@
 Flask
+Flask-Mobility
+Flask-CORS
+markdown2
+CryptoBaker
+firebase-admin
+google-cloud-firestore

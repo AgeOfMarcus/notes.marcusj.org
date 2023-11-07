@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% block content %}
+<script>
+
+var notes = JSON.parse(String.raw`{{ notesj|safe }}`);
+
+</script>
+
+<ul class='navbar'>
+    <li class='nav active' id='notestoggle'>
+        <a onclick='toggleNotes()'>Notes</a>
+    </li>
+    <li class='nav'>
+        <a onclick="logout()">Log Out</a>
+    </li>
+    <li class='nav'>
+        <a onclick='saveNotes()'>Save</a>
+    </li>
+    <li class='nav'>
+        <a id='linkNav' onclick='makeLink()'>Create Link</a>
+    </li>
+    <li class='nav'>
+        <a href='/links'>My Links</a>
+    </li>
+    <li class='nav active' id='savetoggle'>
+        <a onclick='toggleAutosave()'>Autosave</a>
+    </li>
+    <li class='nav'>
+        <a style='color: red' href='/delete/account'>Delete Account</a>
+    </li>
+    <li class='nav' style='float: right; overflow: auto'>
+        <a href='/'>Home</a>
+    </li>
+</ul>
+
+<div class='flexrow'>
+    <div class='leftpane' id='leftpane' style="">
+        <ul class='pane'>
+            <li class='node active'>
+                <a onclick='newNote()'>New</a>
+            </li>
+            <li class='node'>
+                <a style='color: red' onclick='deleteNote()'>Delete</a>
+            </li>
+            <br>
+            {% for note in notes %}
+            <li class='node' id='{{ note }}'>
+                <a onclick='openNote("{{ note }}")'>
+                    {{ note }}
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+</div>
+
+<div style='width: 30%' id='midpane'>
+    <input style='width: 70%' placeholder="title" id='currentTitle' readonly><input style='width: 30%' readonly placeholder="date" id='currentDate'><br>
+    <textarea id='editor' style='width: 100%; height: 100vw' placeholder="enter markdown here" spellcheck="false"></textarea>
+</div>
+
+<div style='width: 10%'></div>
+
+<div class='displaypane' id='content'></div>
+
+<script src='/static/notes.js'></script>
+<script src='/static/image.js'></script>
+<script>
+$('#editor')[0].addEventListener('paste', (event) => {
+    var items = event.clipboardData.items;
+    for (i in items) {
+        var item = items[i];
+        if (item.type.indexOf('image') == -1) continue;
+        upload_image(item.getAsFile(), (url) => {
+            $('#editor')[0].value += '<img src="' + url + '/.png">';
+        })
+    }
+}, false)
+</script>
+{% endblock %}

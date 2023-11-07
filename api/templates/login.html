@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block content %}
+<ul class='navbar'>
+    <li class='nav'><a href='/'>Home</a></li>
+    <li class='nav'><a href='/signup'>Sign Up</a></li>
+    <li class='nav active'><a href='/login'>Log In</a></li>
+    <li class='nav'><a href='/links/public'>Public Links</a></li>
+    <li class='nav'><a href='/demo'>Demo Editor</a></li>
+</ul>
+<div class='container'>
+    <h1>Log In</h1>
+    <br>
+
+    <div class='card'>
+        <img src='https://replit.com/public/images/favicon.ico'>
+        <div class='card-container'>
+            <h4><b>Login with Repl.it</b></h4>
+            <script authed='repl_authed()' src='/static/auth.js'></script>
+        </div>
+    </div>
+
+    <br>
+    {% if reason == 'no_user' %}
+    <h3 style='color: red'>Error: Username not found</h3>
+    {% endif %}
+    {% if reason == 'missing_field' %}
+    <h3 style='color: red'>Error: Missing field</h3>
+    {% endif %}
+    {% if reason == 'bad_pass' %}
+    <h3 style='color: red'>Error: Invalid login details</h3>
+    {% endif %}
+
+    <form action='/login' method='POST'>
+        <label for='username'>Username:</label>
+        <input id='username' name='username'><br>
+
+        <label for='password'>Password:</label>
+        <input type='password' id='password' name='password'>
+        <label for='show-password'>Show Password</label>
+        <input type='checkbox' id='show-password' value='off' onclick='toggleShowPass()'><br>
+        <button type='submit'>Log In</button>
+    </form>
+
+    <script>
+        function toggleShowPass() {
+            var checked = document.getElementById('show-password').checked;
+            var pwdbox = document.getElementById('password');
+            if (checked) {
+                pwdbox.type = 'text';
+            } else {
+                pwdbox.type = 'password';
+            }
+        }
+
+        function repl_authed() {
+            window.location.href = '/replauth';
+        }
+    </script>
+</div>
+{% endblock %}
+
+
+
+

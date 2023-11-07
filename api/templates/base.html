@@ -1,0 +1,21 @@
+<head>
+    <title>notes.marcusj.org</title>
+    <link rel='stylesheet' href='/static/styles.css'>
+    <link rel='stylesheet' href='/static/code.css'>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.4.0/milligram.css">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" sizes="48x48" href="/static/note.png">
+</head>
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src='/static/notify.min.js'></script>
+    <script src='/static/request.js'></script>
+    <script src='/static/shortcut.js'></script>
+    <script defer src="https://analytics.marcusj.org/analytics.js"></script>
+    {% block content %}{% endblock %}
+</body>

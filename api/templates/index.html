@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+<ul class='navbar'>
+    <li class='nav active'><a href='/'>Home</a></li>
+    <li class='nav'><a href='/signup'>Sign Up</a></li>
+    <li class='nav'><a href='/login'>Log In</a></li>
+    <li class='nav'><a href='/links/public'>Public Links</a></li>
+    <li class='nav'><a href='/demo'>Demo Editor</a></li>
+</ul>
+<div class='container'>
+    <h1>notes.marcusj.org</h1>
+    <h4 style='color: gray;'><a href='/__repl'>Hosted with replit.com</a></h4>
+
+    <img src='https://i.imgur.com/Oybdtsp.gif' width="70%"></img>
+
+    <h3>An online text editor that supports the Markdown Syntax</h3>
+
+    <p>
+        Notes are stored in Google Firestore.<br>
+        Markdown rendered in real time.<br>
+        All user passwords are hashed using a secure algorithm.<br>
+    </p>
+
+    <h5>Powered by <a href='https://github.com/markedjs/marked'>marked.js</a></h5>
+</div>
+{% endblock %}

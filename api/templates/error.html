@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Error</h1>
+
+<h3 style='color: red'>{{ msg }}</h3>
+
+<a id="link" href="{{ redir }}">You will be redirected in 3 seconds, click here to immediately redirect</a>
+
+<script>
+    setTimeout(function() {
+        window.location.href = document.getElementById('link').href;
+    }, 3000);
+</script>
+{% endblock %}

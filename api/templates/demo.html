@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block content %}
+<ul class='navbar'>
+    <li class='nav'><a href='/'>Home</a></li>
+    <li class='nav'><a href='/signup'>Sign Up</a></li>
+    <li class='nav'><a href='/login'>Log In</a></li>
+    <li class='nav'><a href='/links/public'>Public Links</a></li>
+    <li class='nav active'><a href='/demo'>Demo Editor</a></li>
+</ul>
+
+<div class="row">
+  <div class="column">
+      <textarea id='editor' style='width: 100%; height=100vw' placeholder="enter markdown here" rows='500'></textarea>
+  </div>
+  <div class="column" id='content'></div>
+</div>
+
+<script>
+    var area = document.getElementById('editor');
+    var content = document.getElementById('content');
+    if (area.addEventListener) {
+    area.addEventListener('input', function() {
+        window.localStorage.setItem('text', area.value)
+        content.innerHTML = marked(area.value);
+    }, false);
+    } else if (area.attachEvent) {
+    area.attachEvent('onpropertychange', function() {
+        // IE-specific event handling code
+        window.localStorage.setItem('text', area.value)
+        content.innerHTML = marked(area.value);
+    });
+    }
+
+    document.body.onload = function() {
+        ls = window.localStorage.getItem('text');
+        if (ls) {
+            document.getElementById('editor').value = ls;
+        } else {
+            document.getElementById('editor').value = '# Edit me!\n\nAnything you write here will be saved in `localStorage`.'
+        }
+
+        document.getElementById('content').innerHTML = marked(document.getElementById('editor').value);
+    }
+</script>
+{% endblock %}

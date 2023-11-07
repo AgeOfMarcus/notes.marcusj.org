@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block content %}
+<ul class='navbar'>
+    <li class='nav'><a href='/'>Home</a></li>
+    <li class='nav'><a href='/notes'>Notes</a></li>
+    <li class='nav'><a href='/links/public'>Public Links</a></li>
+    <li class='nav'><a href='/demo'>Demo Editor</a></li>
+</ul>
+
+<div class='container'>
+    <br><br>
+    <h1>Delete Account</h1>
+
+    <h3 id='err' style='display: none'>Error: your passwords don't match</h3>
+
+    <form id='delForm' action='/delete/account' method='POST'>
+        <label for='password'>Password:</label>
+        <input id='password' name='password' type='password'><br>
+
+        <label for='chk-password'>Confirm Password:</label>
+        <input type='password' id='chk-password'>
+        <label for='show-password'>Show Password</label>
+        <input type='checkbox' id='show-password' value='off' onclick='toggleShowPass()'><br>
+        <button onclick='doSubmit()'>Delete Account</button>
+    </form>
+
+    <script>
+        function toggleShowPass() {
+            var checked = document.getElementById('show-password').checked;
+            var pwdbox = document.getElementById('password');
+            if (checked) {
+                pwdbox.type = 'text';
+            } else {
+                pwdbox.type = 'password';
+            }
+        }
+
+        function doSubmit() {
+            if (document.getElementById('password').value == document.getElementById('chk-password').value) {
+                if (confirm('Are you sure you want to delete your account? This is permenant, and all your saved notes will be lost.')) {
+                    document.getElementById('delForm').submit();
+                }
+            } else {
+                document.getElementById('err').style = 'color: red';
+            }
+        }
+    </script>
+</div>
+{% endblock %}
